@@ -9,7 +9,7 @@
  * 7.) There are 3 task in this that you have to complete. Discuss with your instructor to understand the task.
  */
 
-const myApiKey = ""; // <<-- ADD YOUR API KEY HERE. DELETE THIS KEY before uploading your code on Github or Brightspace, 
+const myApiKey = "8e084d77"; // <<-- ADD YOUR API KEY HERE. DELETE THIS KEY before uploading your code on Github or Brightspace, 
 
 const BASE_URL = "http://www.omdbapi.com";
 
@@ -125,7 +125,15 @@ async function getMovies(movieTitle) {
              * Else write a for loop which will iterator over filteredMovies array 
              * and call createMovieCard() for each movie object in this array.
              */
+const movieSection = document.getElementById("movieCards");
 
+if (filteredMovies.length === 0) {
+    createEmptyView();
+} else {
+    filteredMovies.forEach(movie => {
+        createMovieCard(movie);
+    });
+}
         }
     } catch(exception) {
         console.error("Exception occurred in getMovies function.")
@@ -169,8 +177,13 @@ function createEmptyView() {
      * TASK : 2
      * Create empty view and append it to "movieCards" section.
      */
-
+ const movieSection = document.getElementById("movieCards");
+    const message = document.createElement("p");
+    message.className = "noresult";
+    message.textContent = "No movie found!!! Please search for another title.";
+    movieSection.appendChild(message);
 }
+
 
 /**
  * Create a movie card using the parameter. The card should have movie title and poster. The card should follow below structure:
@@ -191,5 +204,25 @@ function createMovieCard(movie) {
      * TASK : 3
      * Create Movie Card and append it "movieCards" section.
      */
+ const movieSection = document.getElementById("movieCards");
 
+    const card = document.createElement("article");
+    card.className = "card";
+
+    const title = document.createElement("p");
+    title.className = "cardTitle";
+    title.textContent = movie.Title;
+
+    const posterDiv = document.createElement("div");
+    posterDiv.className = "cardPosterDiv";
+
+    const posterImg = document.createElement("img");
+    posterImg.className = "moviePoster";
+    posterImg.src = movie.Poster;
+    posterImg.alt = "Movie poster";
+
+    posterDiv.appendChild(posterImg);
+    card.appendChild(title);
+    card.appendChild(posterDiv);
+    movieSection.appendChild(card);
 }
